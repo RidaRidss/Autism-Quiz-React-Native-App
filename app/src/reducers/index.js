@@ -8,7 +8,10 @@ import navigator from "./navigator";
 
 import networkInfo from "./networkInfo";
 
+import questionaire from "./questionaire";
+
 export default combineReducers({
   route: navigator,
-  networkInfo
+  networkInfo,
+  questionaire
 });

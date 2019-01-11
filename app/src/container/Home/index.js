@@ -20,6 +20,9 @@ let QuestionairHeading =
   "Questionnaire For Parents With Children With ASD Or ASD Traits";
 
 class Home extends Component<{}> {
+  static PropTypes = {
+    _questionaire: PropTypes.array
+  };
   constructor() {
     super();
     this.state = {
@@ -117,7 +120,14 @@ class Home extends Component<{}> {
   }
   static propTypes = {};
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.props._get_questions_action({});
+    this.state._questions
+      .map(obj => ({ obj, ref: this[obj] }))
+      .forEach(({ obj, ref }) => {
+        console.log(obj, "logging state object");
+      });
+  }
 
   componentWillUnmount() {}
 
@@ -169,7 +179,10 @@ class Home extends Component<{}> {
     );
   }
 }
-const mapStateToProps = ({}) => ({});
+
+const mapStateToProps = state => ({
+  questionaire: state.questionaire
+});
 
 const actions = {};
 
