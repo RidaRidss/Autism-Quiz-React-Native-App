@@ -1,0 +1,33 @@
+<resources>
+     <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+            <item name="android:windowIsTranslucent">true</item>
+            <item name="colorPrimaryDark">@color/status_bar_color</item>
+            <item name="android:datePickerDialogTheme">@style/Dialog.Theme</item>
+            <item name="android:timePickerDialogTheme">@style/Dialog.Theme</item>
+        <item name="android:checkboxStyle">@style/all_check_style</item>
+
+    </style>
+
+    <style name="Dialog.Theme" parent="Theme.AppCompat.Light.Dialog">
+                 <!-- Color palette -->
+            <item name="colorPrimary">#4F5152</item>
+            <item name="colorPrimaryDark">#4F5152</item>
+            <item name="colorAccent">#4F5152</item>
+    </style>
+
+     <!-- <style name="all_check_style" parent="Base.Theme.AppCompat">
+      <item name="colorAccent">#4F5152</item>
+        <item name="android:textColorSecondary">#4F5152</item>
+    </style> -->
+
+      <style name="all_check_style" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:buttonTint">#4F5152</item>
+    </style>
+    
+    <style name="SplashTheme" parent="Theme.ReactNative.AppCompat.Light.NoActionBar.FullScreen">
+        <item name="android:windowBackground">@drawable/background_splash</item>
+    </style>
+
+</resources>

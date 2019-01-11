@@ -1,0 +1,76 @@
+{
+  "name": "app",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "add": "^2.0.6",
+    "apisauce": "^0.14.3",
+    "autobind": "^1.0.3",
+    "autobind-decorator": "^2.1.0",
+    "base-64": "^0.1.0",
+    "core-decorators": "^0.20.0",
+    "create-react-class": "^15.6.3",
+    "lodash": "^4.17.10",
+    "moment": "^2.22.1",
+    "numeral": "^2.0.6",
+    "react": "16.3.1",
+    "react-native": "0.55.3",
+    "react-native-android-location-services-dialog-box": "^2.7.0",
+    "react-native-deprecated-custom-components": "^0.1.2",
+    "react-native-keyboard-manager": "^4.0.13-7",
+    "react-native-message-bar": "^2.0.10",
+    "react-native-open-setting": "^1.0.3",
+    "react-native-router-flux": "^4.0.0-beta.28",
+    "react-native-simple-radio-button": "^2.7.3",
+    "react-native-splash-screen": "^3.0.6",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0",
+    "redux-logger": "^3.0.6",
+    "redux-saga": "^0.16.0",
+    "redux-storage": "^4.1.2",
+    "redux-storage-decorator-filter": "^1.1.8",
+    "redux-storage-engine-reactnativeasyncstorage": "^1.0.5",
+    "remote-redux-devtools": "^0.5.12",
+    "seamless-immutable": "^7.1.3"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.2.3",
+    "babel-jest": "22.4.3",
+    "babel-preset-flow": "^6.23.0",
+    "babel-preset-react-native": "4.0.0",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.7.0",
+    "eslint-plugin-react-native": "^3.2.1",
+    "flow-bin": "^0.71.0",
+    "jest": "22.4.3",
+    "react-test-renderer": "16.3.1"
+  },
+  "jest": {
+    "preset": "react-native"
+  },
+  "description": "react app",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RidaRidss/React-Start.git"
+  },
+  "keywords": [
+    "react",
+    "app",
+    "starter"
+  ],
+  "author": "Rida Sarwar Bilgrami",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RidaRidss/React-Start/issues"
+  },
+  "homepage": "https://github.com/RidaRidss/React-Start#readme"
+}
