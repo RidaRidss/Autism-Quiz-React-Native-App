@@ -80,12 +80,8 @@ class Home extends Component<{}> {
     }
   }
 
-  giveAnswer(question, ans, index) {
+  giveAnswer(question, ans) {
     this.props.updateAnswerAction({ id: question.id, answer: ans });
-    // this.state._questions[index].answer = ans;
-    // this.setState({
-    //   _questions: this.state._questions
-    // });
   }
 
   render() {
@@ -109,7 +105,7 @@ class Home extends Component<{}> {
               data={_q.choices}
               question={_q.what}
               type={_q.type}
-              onPress={q => this.giveAnswer(_q, q, i)}
+              onPress={q => this.giveAnswer(_q)}
               value={_q.answer}
             />
           );
