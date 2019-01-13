@@ -31,8 +31,6 @@ class Home extends Component<{}> {
   };
   constructor(props) {
     super(props);
-    this.props.questionaireAction({});
-    reduce_question.push(...this.props.questionaire.data);
     this.state = {
       _questions: [
         {
@@ -129,11 +127,14 @@ class Home extends Component<{}> {
   static propTypes = {};
 
   componentDidMount() {
-    // reduce_question
-    //   .map(obj => ({ obj, ref: this[obj] }))
-    //   .forEach(({ obj, ref }) => {
-    //     console.log(obj, "logging reducer object");
-    //   });
+    console.log(this.state._questionaire, "logging reducer state");
+    this.props.questionaireAction({});
+    reduce_question.push(...this.props.questionaire.data);
+    reduce_question
+      .map(obj => ({ obj, ref: this[obj] }))
+      .forEach(({ obj, ref }) => {
+        console.log(obj, "logging reducer object");
+      });
   }
 
   componentWillUnmount() {}
@@ -153,9 +154,9 @@ class Home extends Component<{}> {
   }
 
   render() {
-    const { questionaire } = this.props;
-    const { reduce_question } = questionaire.data;
-    console.log(reduce_question), "lettter";
+    // const { questionaire } = this.props;
+    // const { question } = questionaire.data;
+    // console.log(question), "lettter";
     return (
       <ScrollView style={styles.container}>
         <View style={styles.heading}>

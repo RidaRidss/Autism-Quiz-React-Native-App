@@ -101,7 +101,6 @@ export default (state: Object = initialState, action: Object) => {
       stateData = _.cloneDeep(state.data);
       if (action && action.data) {
         data = { ...stateData, ...action.data };
-        isFetching: true;
       } else {
         (data = stateData), (isFetching = true);
       }
@@ -111,14 +110,12 @@ export default (state: Object = initialState, action: Object) => {
       });
     case types.UPDATE_ANSWERS:
       let stateData = _.cloneDeep(state.data);
-      let isFetching = true;
       const id = action.data.id;
-      console.log("i am id from reducer", id);
       console.log("i am state data from reducer", state.data);
-      return Immutable.merge(state, {
-        data: stateData,
-        isFetching: false
-      });
+    // return Immutable.merge(state, {
+    //   data: stateData,
+    //   isFetching: false
+    // });
     default:
       return state;
   }
