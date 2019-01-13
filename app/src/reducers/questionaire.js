@@ -111,13 +111,14 @@ export default (state: Object = initialState, action: Object) => {
       });
     case types.UPDATE_ANSWERS:
       let stateData = _.cloneDeep(state.data);
-      if (action && action.data) {
-        stateData[action.payload.id].answer = action.payload.answer;
-        return Immutable.merge(state, {
-          isFetching: false,
-          data: stateData
-        });
-      }
+      // if (action && action.data) {
+      stateData[action.payload.id].answer = action.payload.answer;
+
+      return Immutable.merge(state, {
+        isFetching: false,
+        data: stateData
+      });
+    // }
     default:
       return state;
   }
