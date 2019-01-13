@@ -111,28 +111,13 @@ export default (state: Object = initialState, action: Object) => {
       });
     case types.UPDATE_ANSWERS:
       let stateData = _.cloneDeep(state.data);
-      const exist = stateData.findIndex(
-        currentItem => utils.getObjectId(currentItem) === action.payload.id
-      );
-      console.log("i am exist" + exist);
-      if (exist > -1) {
-        stateData[exist].answer = action.payload.answer;
+      if (action && action.data) {
+        stateData[action.payload.id].answer = action.payload.answer;
+        return Immutable.merge(state, {
+          isFetching: false,
+          data: stateData
+        });
       }
-      // return Immutable.merge(state, {
-      //   isFetching: false,
-      //   data: stateData
-      // });
-      console.log(action, "i am action");
-      console.log("i am state data from reducer", stateData);
-      console.log("i am action answer", action.payload.answer);
-      console.log("i am action question's id", action.payload.id);
-
-    // if (action && action.data) {
-    // }
-    // return Immutable.merge(state, {
-    //   data: stateData,
-    //   isFetching: false
-    // });
     default:
       return state;
   }
