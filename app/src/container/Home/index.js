@@ -32,7 +32,9 @@ class Home extends Component<{}> {
   constructor(props) {
     super(props);
     this.state = {
-      reduce_question: []
+      reduce_question: [],
+      emptyAnswer: [],
+      alldone: false
     };
   }
   static propTypes = {};
@@ -54,13 +56,32 @@ class Home extends Component<{}> {
   getResult() {
     let { questionaire } = this.props;
     const { data } = questionaire;
-
-    console.log(data);
+    if (data && data.length > 0) {
+      data
+        .map(obj => ({ obj, ref: this[obj] }))
+        .forEach(({ obj, ref }) => {
+          if (obj.answer == "") {
+            console.log(
+              "question " + (parseInt(obj.id) + 1) + " is un answered"
+            );
+          } else {
+            this.setState({
+              alldone: true
+            });
+          }
+        });
+      if (this.state.alldone) {
+        alert(
+          "Thank You for your responses , your report will be published within 24 hours"
+        );
+      } else {
+        alert("you have not answered all questions");
+      }
+    }
   }
 
   giveAnswer(question, ans, index) {
     this.props.updateAnswerAction({ id: question.id, answer: ans });
-
     // this.state._questions[index].answer = ans;
     // this.setState({
     //   _questions: this.state._questions
