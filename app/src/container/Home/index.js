@@ -145,7 +145,7 @@ class Home extends Component<{}> {
   }
 
   giveAnswer(question, ans, index) {
-    this.props.updateAnswerAction({ id: question.id });
+    this.props.updateAnswerAction({ id: question.id, answer: ans });
     // this.state._questions[index].answer = ans;
     // this.setState({
     //   _questions: this.state._questions

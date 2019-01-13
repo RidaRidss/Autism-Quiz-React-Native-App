@@ -6,9 +6,9 @@ export function getQuestions(question: Object) {
     type: QUESTIONAIRE_ACTION
   };
 }
-export function updateAnswers(question: Object) {
+export function updateAnswers(payload: { id: String, answer: String }) {
   return {
-    question,
+    payload,
     type: UPDATE_ANSWERS
   };
 }
