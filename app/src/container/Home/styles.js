@@ -16,17 +16,17 @@ export default StyleSheet.create({
   submit: {
     flex: 1,
     height: Metrics.ratio(34),
+    marginHorizontal: Metrics.ratio(19),
     padding: Metrics.ratio(30),
     backgroundColor: Colors.ash_grey,
     color: Colors.ash_grey,
+    justifyContent: "center",
     shadowOpacity: 0.4,
     elevation: 4,
+    textAlign: "center",
     shadowOffset: { width: 4, height: 4 },
-    flexDirection: "row",
-    alignItems: "center",
     shadowRadius: 8,
     shadowColor: Colors.ash_grey,
-    alignSelf: "center",
     marginBottom: Metrics.ratio(20)
   }
 });
