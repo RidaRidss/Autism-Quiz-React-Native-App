@@ -1,7 +1,10 @@
+// @flow
+import _ from "lodash";
 import Immutable from "seamless-immutable";
 import * as types from "../actions/ActionTypes";
 
 const initialState = Immutable({
+  isFetching: false,
   data: [
     {
       id: 0,
@@ -92,20 +95,31 @@ const initialState = Immutable({
   ]
 });
 
-export default function getQuestionAire(state = initialState, action) {
+export default (state: Object = initialState, action: Object) => {
   switch (action.type) {
     case types.QUESTIONAIRE_ACTION:
       stateData = _.cloneDeep(state.data);
-
       if (action && action.data) {
         data = { ...stateData, ...action.data };
+        isFetching: true;
       } else {
-        data = stateData;
+        (data = stateData), (isFetching = true);
       }
       return Immutable.merge(state, {
-        data
+        data: stateData,
+        isFetching: false
+      });
+    case types.UPDATE_ANSWERS:
+      let stateData = _.cloneDeep(state.data);
+      let isFetching = true;
+      const id = action.data.id;
+      console.log("i am id from reducer", id);
+      console.log("i am state data from reducer", state.data);
+      return Immutable.merge(state, {
+        data: stateData,
+        isFetching: false
       });
     default:
       return state;
   }
-}
+};

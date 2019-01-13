@@ -13,18 +13,26 @@ import { Text, ButtonView } from "../../components";
 import { Questions } from "../../controls";
 
 import { Actions } from "react-native-router-flux";
+import {
+  getQuestions as questionaireAction,
+  updateAnswers as updateAnswerAction
+} from "../../actions/QuestionaireActons";
 
 import styles from "./styles";
 
 let QuestionairHeading =
   "Questionnaire For Parents With Children With ASD Or ASD Traits";
 
+let reduce_question = [];
+
 class Home extends Component<{}> {
   static PropTypes = {
     _questionaire: PropTypes.array
   };
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    this.props.questionaireAction({});
+    reduce_question.push(...this.props.questionaire.data);
     this.state = {
       _questions: [
         {
@@ -121,12 +129,11 @@ class Home extends Component<{}> {
   static propTypes = {};
 
   componentDidMount() {
-    this.props._get_questions_action({});
-    this.state._questions
-      .map(obj => ({ obj, ref: this[obj] }))
-      .forEach(({ obj, ref }) => {
-        console.log(obj, "logging state object");
-      });
+    // reduce_question
+    //   .map(obj => ({ obj, ref: this[obj] }))
+    //   .forEach(({ obj, ref }) => {
+    //     console.log(obj, "logging reducer object");
+    //   });
   }
 
   componentWillUnmount() {}
@@ -136,16 +143,19 @@ class Home extends Component<{}> {
     alert("get result on behalf of questionaire");
   }
 
-  giveAnswer(ans, index) {
-    this.state._questions[index].answer = ans;
-    this.setState({
-      _questions: this.state._questions
-    });
-    console.log(this.state._questions);
+  giveAnswer(question, ans, index) {
+    this.props.updateAnswerAction({ id: question.id });
+    // this.state._questions[index].answer = ans;
+    // this.setState({
+    //   _questions: this.state._questions
+    // });
+    // console.log(this.state._questions);
   }
 
   render() {
-    const { _questions } = this.state;
+    const { questionaire } = this.props;
+    const { reduce_question } = questionaire.data;
+    console.log(reduce_question), "lettter";
     return (
       <ScrollView style={styles.container}>
         <View style={styles.heading}>
@@ -158,14 +168,14 @@ class Home extends Component<{}> {
             {QuestionairHeading}
           </Text>
         </View>
-        {_questions.map((_q, i) => {
+        {reduce_question.map((_q, i) => {
           return (
             <Questions
               key={i}
               data={_q.choices}
               question={_q.what}
               type={_q.type}
-              onPress={q => this.giveAnswer(q, i)}
+              onPress={q => this.giveAnswer(_q, q, i)}
               value={_q.answer}
             />
           );
@@ -184,7 +194,7 @@ const mapStateToProps = state => ({
   questionaire: state.questionaire
 });
 
-const actions = {};
+const actions = { questionaireAction, updateAnswerAction };
 
 export default connect(
   mapStateToProps,

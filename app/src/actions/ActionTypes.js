@@ -14,3 +14,7 @@ function createRequestTypes(base) {
 
 // network related action type
 export const NETWORK_INFO = "NETWORK_INFO";
+
+export const QUESTIONAIRE_ACTION = "QUESTIONAIRE_ACTION";
+
+export const UPDATE_ANSWERS = "UPDATE_ANSWERS";
