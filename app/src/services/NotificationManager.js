@@ -7,14 +7,17 @@ class NotificationManager {
     PushNotification.configure({
       // (optional) Called when Token is generated (iOS and Android)
       onRegister: token => {
-        //console.log('TOKENN:', token);
+        console.log("TOKENN:", token);
         AsyncStorage.setItem("TOKEN", JSON.stringify({ token }), () => {});
       },
 
       // (required) Called when a remote or local notification is opened or received
       onNotification: function(notification) {
         console.log("NOTIFICATION:", notification);
-        // const clicked = notification.userInteraction;
+        const clicked = notification.userInteraction;
+        if (clicked) {
+          console.log("user clicked on notification");
+        }
       },
       popInitialNotification: true,
       requestPermissions: true

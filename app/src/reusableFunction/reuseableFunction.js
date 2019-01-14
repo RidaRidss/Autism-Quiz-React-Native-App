@@ -134,18 +134,12 @@ const getDateOfDayOfWeek = (date, dayOfWeek) => {
   return [year, month, day].join("-");
 };
 
-const createLocalResultNotification = (
-  result_id,
-  desc,
-  // configs,
-  count,
-  dateObject
-) => {
+const createLocalResultNotification = (result_id, title, desc, dateObject) => {
   scheduleLocalNotification(
     desc,
     dateObject,
-    count,
-    "Result Reminder",
+    result_id,
+    title,
     {
       result_id: result_id,
       desc: desc

@@ -17,6 +17,7 @@ import {
 
 import { Actions } from "react-native-router-flux";
 import NotificationManager from "./services/NotificationManager";
+
 import PushNotification from "react-native-push-notification";
 
 import NetworkInfo from "./services/NetworkInfo";
@@ -49,9 +50,9 @@ export default class App extends Component<{}> {
   };
 
   componentDidMount() {
+    NotificationManager.NotificationConfig();
     if (Utils.isPlatformAndroid()) NativeModules.SplashScreen.hide();
     if (Utils.isJSDebugMode()) console.log("Debug Mode Is Enabled");
-    NotificationManager.NotificationConfig();
 
     BackHandler.addEventListener("hardwareBackPress", () => null);
 

@@ -29,8 +29,8 @@ export function scheduleLocalNotification(
     message, // (required)
     date,
     id,
-    smallIcon: "notification_icon",
-    largeIcon: "notification_icon",
+    smallIcon: "ic_launcher",
+    largeIcon: "ic_launcher",
     data: JSON.stringify(payload),
     vibrate: true, // (optional) default: true
     vibration: 600, // vibration length in milliseconds, ignored if vibrate=false, default: 1000

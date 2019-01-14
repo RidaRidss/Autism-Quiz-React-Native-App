@@ -14,6 +14,7 @@ import { Text, ButtonView } from "../../components";
 import { Questions } from "../../controls";
 
 import { Actions } from "react-native-router-flux";
+import PushNotification from "react-native-push-notification";
 import {
   getQuestions as questionaireAction,
   updateAnswers as updateAnswerAction
@@ -80,70 +81,28 @@ class Home extends Component<{}> {
         alert(
           "Thank You for your responses , your report will be published within 24 hours"
         );
+        // result will generate after 24 hours , user will get a push notification for their result
+        count = reuseableFunctions.autoIDGenerator();
+        // preparing payload for notification
+        let result_id = count;
+        let title = "Result Reminder";
+        let desc = "Your Result Is Ready, Tap to Continue . . .";
+        let dateObject = new Date();
+        dateObject.setDate(dateObject.getDate() + 1);
+        reuseableFunctions.createLocalResultNotification(
+          result_id,
+          title,
+          desc,
+          dateObject
+        );
       } else {
         alert("you have not answered all questions");
       }
     }
   }
 
-  formatDate(date) {
-    var d = new Date(date),
-      month = "" + (d.getMonth() + 1),
-      day = "" + d.getDate(),
-      year = d.getFullYear();
-
-    if (month.length < 2) month = "0" + month;
-    if (day.length < 2) day = "0" + day;
-
-    return [year, month, day].join("-");
-  }
-
   giveAnswer(question, ans) {
-    count = reuseableFunctions.autoIDGenerator();
-    // testing state time
-    // ======================
-    var time = Util.timeFormat(reuseableFunctions.getDateTime());
-    var hours = Number(time.match(/^(\d+)/)[1]);
-    var minutes = Number(time.match(/:(\d+)/)[1]);
-    console.log(minutes, "logging minutes");
-    var AMPM = time.match(/\s(.*)$/)[1];
-    if (AMPM == "PM" && hours < 12) hours = hours + 12;
-    if (AMPM == "AM" && hours == 12) hours = hours - 12;
-    var sHours = hours.toString();
-    var sMinutes = minutes.toString();
-    if (hours < 10) sHours = "0" + sHours;
-    if (minutes < 10) sMinutes = "0" + sMinutes;
-    formatedStateTime = sHours + ":" + sMinutes;
-
-    var today_date = new Date();
-    var today_date_N_time_Set_hours = today_date.setDate(
-      today_date.getDate() + 1
-    );
-
-    var todaydateObj = new Date(today_date_N_time_Set_hours);
-    var generatedFormatDateForToday = this.formatDate(todaydateObj);
-    var config = generatedFormatDateForToday + " " + formatedStateTime;
-    console.log(config, "logging config");
-    let id = count;
-    reuseableFunctions.createLocalResultNotification(
-      id,
-      "test",
-      // config,
-      count,
-      todaydateObj
-    );
-
-    // var after24HourDate = reuseableFunctions.getAddedDate(0);
-
-    // dateObjectAfter24Hours = new Date(after24HourDate);
-
-    // var generatedFormatDateAfter24Hours = this.formatDate(
-    //   dateObjectAfter24Hours
-    // );
-
-    // console.log(dateObjectAfter24Hours, "logged formatted date after 24 hours");
-
-    // this.props.updateAnswerAction({ id: question.id, answer: ans });
+    this.props.updateAnswerAction({ id: question.id, answer: ans });
   }
 
   render() {
