@@ -17,6 +17,8 @@ class NotificationManager {
         const clicked = notification.userInteraction;
         if (clicked) {
           console.log("user clicked on notification");
+          // on tap notification user will navigate to home screen with notification response
+          Actions.home({ data: notification.data });
         }
       },
       popInitialNotification: true,
