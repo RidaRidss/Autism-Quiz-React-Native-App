@@ -12,9 +12,7 @@ buildscript {
         }
     }
     dependencies {
-        // classpath 'com.android.tools.build:gradle:2.2.3'
                   classpath 'com.android.tools.build:gradle:3.2.0'
-                   classpath 'com.google.gms:google-services:4.2.0'
 
     }
 }
@@ -37,15 +35,3 @@ allprojects {
         }
 }
 }
-
-// ext {
-//     googlePlayServicesVersion = "<Your play services version>" // default: "+"
-//     firebaseVersion = "<Your Firebase version>" // default: "+"
-
-//     // Other settings
-//     compileSdkVersion 27
-//     buildToolsVersion "27.0.1"
-//         targetSdkVersion 22
-
-//     supportLibVersion = "<Your support lib version>" // default: 23.1.1
-// }

@@ -29,7 +29,6 @@ import styles from "./styles";
 let QuestionairHeading =
   "Questionnaire For Parents With Children With ASD Or ASD Traits";
 
-// let reduce_question = [];
 let count = 0;
 
 class Home extends Component<{}> {
