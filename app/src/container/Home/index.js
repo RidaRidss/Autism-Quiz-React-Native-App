@@ -4,7 +4,7 @@ import _ from "lodash";
 import moment from "moment";
 // react
 import React, { Component } from "react";
-import { ScrollView, View } from "react-native";
+import { ScrollView, View, Animated, Easing } from "react-native";
 
 import PropTypes from "prop-types";
 
@@ -30,6 +30,10 @@ let QuestionairHeading =
   "Questionnaire For Parents With Children With ASD Or ASD Traits";
 
 let count = 0;
+let result_id;
+let title = "";
+let desc = "";
+let dateObject;
 
 class Home extends Component<{}> {
   static PropTypes = {
@@ -39,18 +43,33 @@ class Home extends Component<{}> {
     super(props);
     this.state = {
       reduce_question: [],
-      emptyAnswer: [],
       alldone: false
     };
+    this.animatedValue = [];
+    this.state.reduce_question.forEach(value => {
+      this.animatedValue[value] = new Animated.Value(0);
+    });
   }
   static propTypes = {};
 
   componentDidMount() {
+    this.animate();
     this.props.questionaireAction({});
     this.state.reduce_question.push(...this.props.questionaire.data);
   }
 
   componentWillReceiveProps(nextProps) {
+    if (
+      nextProps &&
+      nextProps.data &&
+      nextProps.data.desc &&
+      nextProps.data.desc ==
+        "Thanks for your response, You will get a push notification once your result gets ready"
+    ) {
+      alert(
+        "Thank You for your responses , your report will be published within 24 hours"
+      );
+    }
     if (!_.isEqual(this.props.questionaire, nextProps.questionaire)) {
       this.state.reduce_question = [];
       this.state.reduce_question.push(...nextProps.questionaire.data);
@@ -59,43 +78,65 @@ class Home extends Component<{}> {
       });
     }
   }
+
+  animate() {
+    const animations = this.state.reduce_question.map(item => {
+      return Animated.timing(this.animatedValue[item], {
+        toValue: 1,
+        duration: 5000
+      });
+    });
+    Animated.sequence(animations).start();
+  }
+
   getResult() {
     let { questionaire } = this.props;
     const { data } = questionaire;
     if (data && data.length > 0) {
-      data
-        .map(obj => ({ obj, ref: this[obj] }))
-        .forEach(({ obj, ref }) => {
-          if (obj.answer == "") {
-            console.log(
-              "question " + (parseInt(obj.id) + 1) + " is un answered"
-            );
-          } else {
-            this.setState({
-              alldone: true
+      for (let counter = 0; counter < data.length; counter++) {
+        if (data[counter].answer == "") {
+          this.setState({ alldone: false }, () => {
+            alert("you have not answered all questions");
+          });
+
+          break;
+        } else {
+          this.setState({ alldone: true });
+          if (counter == data.length - 1) {
+            this.setState({ alldone: true }, () => {
+              // user will get a imediate push notification for status
+              count = reuseableFunctions.autoIDGenerator();
+              // preparing payload for notification
+              result_id = count;
+              title = "Result Status";
+              desc =
+                "Thanks for your response, You will get a push notification once your result gets ready";
+              dateObject = new Date();
+              dateObject.setDate(dateObject.getDate());
+              reuseableFunctions.createLocalResultNotification(
+                result_id,
+                title,
+                desc,
+                dateObject
+              );
+              dateObject = undefined;
+              // result will generate after 24 hours , user will get a push notification for their result
+              count = reuseableFunctions.autoIDGenerator();
+              // preparing payload for notification
+              result_id = count;
+              title = "Result Reminder";
+              desc = "Your Result Is Ready, Tap to Continue . . .";
+              dateObject = new Date();
+              dateObject.setDate(dateObject.getDate() + 1);
+              reuseableFunctions.createLocalResultNotification(
+                result_id,
+                title,
+                desc,
+                dateObject
+              );
             });
           }
-        });
-      if (this.state.alldone) {
-        alert(
-          "Thank You for your responses , your report will be published within 24 hours"
-        );
-        // result will generate after 24 hours , user will get a push notification for their result
-        count = reuseableFunctions.autoIDGenerator();
-        // preparing payload for notification
-        let result_id = count;
-        let title = "Result Reminder";
-        let desc = "Your Result Is Ready, Tap to Continue . . .";
-        let dateObject = new Date();
-        dateObject.setDate(dateObject.getDate() + 1);
-        reuseableFunctions.createLocalResultNotification(
-          result_id,
-          title,
-          desc,
-          dateObject
-        );
-      } else {
-        alert("you have not answered all questions");
+        }
       }
     }
   }
@@ -106,8 +147,50 @@ class Home extends Component<{}> {
 
   render() {
     const { reduce_question } = this.state;
+    const childs = reduce_question.map((_q, i) => {
+      return (
+        <Animated.View
+          key={i}
+          style={{
+            opacity: this.animatedValue[_q],
+
+            backgroundColor: "transparent"
+          }}
+        >
+          <Questions
+            style={{ backgroundColor: "transparent" }}
+            key={i}
+            data={_q.choices}
+            question={_q.what}
+            type={_q.type}
+            onPress={q => this.giveAnswer(_q)}
+            value={_q.answer}
+          />
+        </Animated.View>
+      );
+    });
     return (
-      <ScrollView style={styles.container}>
+      <Animated.ScrollView
+        style={styles.container}
+        onScroll={Animated.event(
+          [
+            {
+              nativeEvent: {
+                contentOffset: {
+                  y: {
+                    toValue: 100,
+                    easing: Easing.back(),
+                    duration: 7000
+                  }
+                }
+              }
+            }
+          ],
+          {
+            useNativeDriver: true
+          }
+        )}
+      >
         <View style={styles.heading}>
           <Text
             style={styles.headText}
@@ -118,24 +201,13 @@ class Home extends Component<{}> {
             {QuestionairHeading}
           </Text>
         </View>
-        {reduce_question.map((_q, i) => {
-          return (
-            <Questions
-              key={i}
-              data={_q.choices}
-              question={_q.what}
-              type={_q.type}
-              onPress={q => this.giveAnswer(_q)}
-              value={_q.answer}
-            />
-          );
-        })}
+        {childs}
         <ButtonView onPress={() => this.getResult()} style={styles.submit}>
           <Text color={"primary"} type="AvenirNextDemiBold" size="twelve">
             {"Submit"}
           </Text>
         </ButtonView>
-      </ScrollView>
+      </Animated.ScrollView>
     );
   }
 }
