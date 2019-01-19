@@ -1,3 +1,5 @@
 import Home from "./Home";
+import Result from "./Result";
+import Screening from "./Screening";
 
-export { Home };
+export { Home, Result, Screening };

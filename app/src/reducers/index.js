@@ -9,9 +9,11 @@ import navigator from "./navigator";
 import networkInfo from "./networkInfo";
 
 import questionaire from "./questionaire";
+import payment from "./payment";
 
 export default combineReducers({
   route: navigator,
   networkInfo,
-  questionaire
+  questionaire,
+  payment
 });

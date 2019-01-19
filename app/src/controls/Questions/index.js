@@ -1,7 +1,7 @@
 // @flow
 import React from "react";
 import PropTypes from "prop-types";
-import { View, TextInput } from "react-native";
+import { View, TextInput, ViewPropTypes } from "react-native";
 
 import { Text } from "../../components";
 import styles from "./style";
@@ -14,7 +14,8 @@ export default class Questions extends React.Component {
     data: PropTypes.array,
     question: PropTypes.string,
     type: PropTypes.string,
-    onPress: PropTypes.func
+    onPress: PropTypes.func,
+    style: ViewPropTypes.style
   };
 
   static defaultProps = {
@@ -22,7 +23,8 @@ export default class Questions extends React.Component {
     type: PropTypes.string,
     data: PropTypes.array,
     question: PropTypes.string,
-    onPress: PropTypes.func
+    onPress: PropTypes.func,
+    style: ViewPropTypes.style
   };
 
   render() {

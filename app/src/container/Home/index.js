@@ -1,9 +1,10 @@
 // redux
 import { connect } from "react-redux";
 import _ from "lodash";
+import moment from "moment";
 // react
 import React, { Component } from "react";
-import { ScrollView, View } from "react-native";
+import { ScrollView, View, Animated, Easing } from "react-native";
 
 import PropTypes from "prop-types";
 
@@ -13,17 +14,28 @@ import { Text, ButtonView } from "../../components";
 import { Questions } from "../../controls";
 
 import { Actions } from "react-native-router-flux";
+import PushNotification from "react-native-push-notification";
 import {
   getQuestions as questionaireAction,
   updateAnswers as updateAnswerAction
 } from "../../actions/QuestionaireActons";
+
+import reuseableFunctions from "../../reusableFunction/reuseableFunction";
+
+import Util from "../../util";
 
 import styles from "./styles";
 
 let QuestionairHeading =
   "Questionnaire For Parents With Children With ASD Or ASD Traits";
 
-// let reduce_question = [];
+let count = 0;
+let result_id;
+let title = "";
+let desc = "";
+let dateObject;
+let getPoints = 0;
+let filteredChoicesItems;
 
 class Home extends Component<{}> {
   static PropTypes = {
@@ -33,7 +45,6 @@ class Home extends Component<{}> {
     super(props);
     this.state = {
       reduce_question: [],
-      emptyAnswer: [],
       alldone: false
     };
     this.animatedValue = [];
@@ -50,19 +61,32 @@ class Home extends Component<{}> {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!_.isEqual(this.props.questionaire, nextProps.questionaire)) {
-      this.state.reduce_question = [];
-      this.state.reduce_question.push(...nextProps.questionaire.data);
-      this.setState({
-        reduce_question: this.state.reduce_question
-      });
+    if (
+      nextProps &&
+      nextProps.data &&
+      nextProps.data.desc &&
+      nextProps.data.desc ==
+        "Thanks for your response, You will get a push notification once your result gets ready"
+    ) {
+      alert(
+        "Thank You for your responses , your report will be published within 24 hours"
+      );
+    }
+    if (!_.isEqual(this.props, nextProps)) {
+      if (!_.isEqual(this.props.questionaire, nextProps.questionaire)) {
+        this.state.reduce_question = [];
+        this.state.reduce_question.push(...nextProps.questionaire.data);
+        this.setState({
+          reduce_question: this.state.reduce_question
+        });
+      }
     }
   }
+
   getResult() {
     let { questionaire } = this.props;
-    const { data } = questionaire;
+    let { data } = questionaire;
     if (data && data.length > 0) {
-<<<<<<< HEAD
       for (let counter = 0; counter < data.length; counter++) {
         if (data[counter].answer == "") {
           this.setState({ alldone: false }, () => {
@@ -133,33 +157,15 @@ class Home extends Component<{}> {
                 getPoints,
                 dateObject
               );
-=======
-      data
-        .map(obj => ({ obj, ref: this[obj] }))
-        .forEach(({ obj, ref }) => {
-          if (obj.answer == "") {
-            console.log(
-              "question " + (parseInt(obj.id) + 1) + " is un answered"
-            );
-          } else {
-            this.setState({
-              alldone: true
->>>>>>> parent of db7adf0... local notifications added on questionaire submition, diagnosis will start on behalf of result
             });
           }
-        });
-      if (this.state.alldone) {
-        alert(
-          "Thank You for your responses , your report will be published within 24 hours"
-        );
-      } else {
-        alert("you have not answered all questions");
+        }
       }
     }
   }
 
-  giveAnswer(question, ans) {
-    this.props.updateAnswerAction({ id: question.id, answer: ans });
+  giveAnswer(ques_obj, ans) {
+    this.props.updateAnswerAction({ id: ques_obj.id, answer: ans });
   }
 
   render() {
@@ -225,7 +231,7 @@ class Home extends Component<{}> {
               data={_q.choices}
               question={_q.what}
               type={_q.type}
-              onPress={q => this.giveAnswer(_q)}
+              onPress={q => this.giveAnswer(_q, q)}
               value={_q.answer}
             />
           );
