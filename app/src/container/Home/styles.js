@@ -29,4 +29,9 @@ export default StyleSheet.create({
     shadowColor: Colors.ash_grey,
     marginBottom: Metrics.ratio(20)
   }
+  // container: {
+  //   flex: 1,
+  //   flexDirection: "row",
+  //   flexWrap: "wrap"
+  // }
 });

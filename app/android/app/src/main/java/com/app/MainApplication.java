@@ -32,7 +32,6 @@ public class MainApplication extends Application implements ReactApplication {
           // 3rd party lib package usage
            new SplashScreenPackage(),
            new ReactNativePushNotificationPackage()
-
       );
     }
 
