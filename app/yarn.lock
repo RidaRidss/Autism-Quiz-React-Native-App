@@ -4854,6 +4854,11 @@ react-native-open-setting@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/react-native-open-setting/-/react-native-open-setting-1.0.3.tgz#850581fe4af8fc9db0a88957e42bd7812740b016"
 
+react-native-push-notification@^3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/react-native-push-notification/-/react-native-push-notification-3.1.2.tgz#a6129fb2897773a19c7b42bba1b51a9a4aac7df3"
+  integrity sha512-MjjPNXb2Cw7g1D41DtVbTVuGFCAtADxb91pAEFSkQ0AZ2gIooqYkWFHBL6woc15QHhtaZS8VT2GQoyW5OWlxIg==
+
 react-native-router-flux@^4.0.0-beta.28:
   version "4.0.6"
   resolved "https://registry.yarnpkg.com/react-native-router-flux/-/react-native-router-flux-4.0.6.tgz#e4723f5ce89cb5822e0c9bb6d0a8d4de6179eb58"
