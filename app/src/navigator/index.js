@@ -5,10 +5,12 @@ import { Navigator } from "react-native-deprecated-custom-components";
 import { Stack, Scene, Router, Actions } from "react-native-router-flux";
 import { Animated, Easing } from "react-native";
 import { Colors, Images } from "../theme";
-import { Home, Result, Screening } from "../container";
+import { Home } from "../container";
 import { Text, NavIcon } from "../components";
 
 import styles from "./styles";
+
+// const BACK_SCENES = "home";
 
 function onBackPress() {
   const scene = Actions.currentScene;
@@ -56,22 +58,20 @@ const navigator = Actions.create(
     tintColor={Colors.primary}
   >
     <Scene
-      initial
       right={() => (
         <ConnectedNavIcon
           rippleEffectFalse="false"
           style={styles.rightButtonStyle}
           onPress={() => alert("i am right")}
           icon={Images.call}
-          source={Images.call}
+          // source={Images.call}
         />
       )}
-      title="Home"
+      title="Dashboard"
+      initial
       key="home"
       component={Home}
     />
-    <Scene title="Result" key="result" component={Result} />
-    <Scene title="Screening Process" key="screening" component={Screening} />
   </Stack>
 );
 

@@ -1,12 +1,4 @@
 import { Alert } from "react-native";
-import moment from "moment";
-
-import PushNotification from "react-native-push-notification";
-
-import PushController, {
-  scheduleLocalNotification,
-  getRandomInt
-} from "../config/notifController";
 
 // function to show message bar.
 const showAlert = (title, message) => {
@@ -62,12 +54,6 @@ const getSubtractedDate = noOfDaysToSubtract => {
   return moment(dateBeforeDays, moment.ISO_8601);
 };
 
-const getAddedDate = noOfDaysToAdd => {
-  var dateAfterDays = new Date();
-  dateAfterDays.setDate(dateAfterDays.getDate() + (noOfDaysToAdd + 1));
-  return moment(dateAfterDays, moment.ISO_8601);
-};
-
 const getDateObjectOfDayOfWeek = (date, dayOfWeek) => {
   var resultDate = new Date(date.getTime());
   resultDate.setDate(date.getDate() + ((7 + dayOfWeek - date.getDay()) % 7));
@@ -119,62 +105,10 @@ const convertToIsoDateStringFromDate = dateTime => {
   }
 };
 
-const getDateOfDayOfWeek = (date, dayOfWeek) => {
-  var resultDate = new Date(date.getTime());
-  resultDate.setDate(date.getDate() + ((7 + dayOfWeek - date.getDay()) % 7));
-
-  var form_month = resultDate.getMonth() + 1;
-  var month = "" + form_month;
-  var day = resultDate.getDate();
-  var year = resultDate.getFullYear();
-
-  if (month.length < 2) month = "0" + month;
-  if (day.length < 2) day = "0" + day;
-  // console.log([year, month, day].join("-"));
-  return [year, month, day].join("-");
-};
-
-const createLocalResultNotification = (result_id, title, desc, dateObject) => {
-  scheduleLocalNotification(
-    desc,
-    dateObject,
-    result_id,
-    title,
-    {
-      result_id: result_id,
-      desc: desc
-    },
-    "day"
-  );
-};
-
-const createLocalResultNotification24HoursLater = (
-  result_id,
-  title,
-  desc,
-  score,
-  dateObject
-) => {
-  scheduleLocalNotification(
-    desc,
-    dateObject,
-    result_id,
-    title,
-    {
-      result_id: result_id,
-      desc: desc,
-      score
-    },
-    "day"
-  );
-};
-
 export default {
-  getDateOfDayOfWeek,
-  createLocalResultNotification,
-  createLocalResultNotification24HoursLater,
   convertToIsoDateStringFromDate,
   convertIsoDateStringToDate,
+  getSubtractedDate,
   getDateObjectOfDayOfWeek,
   addWeeksToDate,
   autoIDGenerator,
@@ -182,6 +116,5 @@ export default {
   showAlert,
   getDateTime,
   _date_time,
-  getSubtractedDate,
-  getAddedDate
+  getSubtractedDate
 };
