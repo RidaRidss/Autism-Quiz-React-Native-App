@@ -14,6 +14,8 @@ import java.util.List;
 // importing third party libs
 
 import com.splashscreen.SplashScreenPackage;
+import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage; 
+
 
 
 public class MainApplication extends Application implements ReactApplication {
@@ -29,12 +31,9 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
           // 3rd party lib package usage
-<<<<<<< HEAD
            new SplashScreenPackage(),
            new ReactNativePushNotificationPackage()
-=======
-           new SplashScreenPackage()
->>>>>>> parent of db7adf0... local notifications added on questionaire submition, diagnosis will start on behalf of result
+
       );
     }
 
