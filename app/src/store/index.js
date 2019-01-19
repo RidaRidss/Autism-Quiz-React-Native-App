@@ -24,7 +24,8 @@ export default function configureStore(reducers, onComplete: Function) {
   const engine = filter(
     createEngine("AppTree"),
     ["whitelisted-key"],
-    ["questionaire", "data"]
+    ["questionaire", "data"],
+    ["payment", "data"]
   );
   const storeMiddleware = storage.createMiddleware(engine);
   const sagaMiddleware = createSagaMiddleware();
