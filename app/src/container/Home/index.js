@@ -47,15 +47,10 @@ class Home extends Component<{}> {
       reduce_question: [],
       alldone: false
     };
-    this.animatedValue = [];
-    this.state.reduce_question.forEach(value => {
-      this.animatedValue[value] = new Animated.Value(0);
-    });
   }
   static propTypes = {};
 
   componentDidMount() {
-    this.animate();
     this.props.questionaireAction({});
     this.state.reduce_question.push(...this.props.questionaire.data);
   }
@@ -129,6 +124,7 @@ class Home extends Component<{}> {
               title = "Result Status";
               desc =
                 "Thanks for your response, You will get a push notification once your result gets ready";
+
               dateObject = new Date();
               dateObject.setDate(dateObject.getDate());
               reuseableFunctions.createLocalResultNotification(
@@ -170,50 +166,8 @@ class Home extends Component<{}> {
 
   render() {
     const { reduce_question } = this.state;
-    const childs = reduce_question.map((_q, i) => {
-      return (
-        <Animated.View
-          key={i}
-          style={{
-            opacity: this.animatedValue[_q],
-
-            backgroundColor: "transparent"
-          }}
-        >
-          <Questions
-            style={{ backgroundColor: "transparent" }}
-            key={i}
-            data={_q.choices}
-            question={_q.what}
-            type={_q.type}
-            onPress={q => this.giveAnswer(_q)}
-            value={_q.answer}
-          />
-        </Animated.View>
-      );
-    });
     return (
-      <Animated.ScrollView
-        style={styles.container}
-        onScroll={Animated.event(
-          [
-            {
-              nativeEvent: {
-                contentOffset: {
-                  y: {
-                    toValue: 100,
-                    easing: Easing.back(),
-                    duration: 7000
-                  }
-                }
-              }
-            }
-          ],
-          {
-            useNativeDriver: true
-          }
-        )}
-      >
+      <ScrollView style={styles.container}>
         <View style={styles.heading}>
           <Text
             style={styles.headText}
@@ -241,7 +195,7 @@ class Home extends Component<{}> {
             {"Submit"}
           </Text>
         </ButtonView>
-      </Animated.ScrollView>
+      </ScrollView>
     );
   }
 }

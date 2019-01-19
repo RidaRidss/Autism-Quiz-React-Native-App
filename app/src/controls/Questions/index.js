@@ -28,9 +28,9 @@ export default class Questions extends React.Component {
   };
 
   render() {
-    const { value, data, onPress, question, type, style } = this.props;
+    const { value, data, onPress, question, type } = this.props;
     return (
-      <View style={[styles.componentParent, style]}>
+      <View style={styles.componentParent}>
         <View style={styles.questionContainer}>
           <Text type="AvenirNextMedium" color="HanBlue" size="fourteen">
             {question}
